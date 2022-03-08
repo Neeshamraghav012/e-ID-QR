@@ -125,15 +125,27 @@ class _MyAppState extends State<MyApp> {
                             qrdata: qrdata,
                           )));
                 } else {
-                  _scaffoldkey.currentState.showSnackBar(SnackBar(
-                    content: Text(
-                      "Invalid Credential.",
-                      style: TextStyle(
-                        color: Colors.red,
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "Invalid Credential.",
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
                       ),
+                      behavior: SnackBarBehavior.floating,
                     ),
-                    duration: Duration(seconds: 10),
-                  ));
+                  );
+
+                  // _scaffoldkey.currentState.showSnackBar(SnackBar(
+                  //   content: Text(
+                  //     "Invalid Credential.",
+                  //     style: TextStyle(
+                  //       color: Colors.red,
+                  //     ),
+                  //   ),
+                  //   duration: Duration(seconds: 10),
+                  // ));
                 }
               },
               style: ElevatedButton.styleFrom(

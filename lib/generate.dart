@@ -3,10 +3,10 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 // QR code Screen.
 class GeneratePage extends StatelessWidget {
-  var rollNo;
-  var name;
-  var avatar;
-  var qrdata;
+  String rollNo;
+  String name;
+  String avatar;
+  String qrdata;
   GeneratePage(
       {@required this.rollNo,
       @required this.avatar,
@@ -143,10 +143,10 @@ class GeneratePage extends StatelessWidget {
 
 // User Profile Screen.
 class Settings extends StatelessWidget {
-  var rollNo;
-  var name;
-  var avatar;
-  var qrdata;
+  String rollNo;
+  String name;
+  String avatar;
+  String qrdata;
 
   Settings(
       {@required this.rollNo,
