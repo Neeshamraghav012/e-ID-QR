@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'dart:ui';
-import 'package:flutter/rendering.dart';
 
+// QR code Screen.
 class GeneratePage extends StatelessWidget {
   var rollNo;
   var name;
@@ -31,7 +30,7 @@ class GeneratePage extends StatelessWidget {
                 color: Colors.red,
               ),
               child: Text(
-                'Neesham',
+                '$name',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -68,14 +67,35 @@ class GeneratePage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Center(
-            child: CircleAvatar(
-              backgroundImage: NetworkImage(avatar == null
-                  ? 'https://lh3.googleusercontent.com/a-/AAuE7mChgTiAe-N8ibcM3fB_qvGdl2vQ9jvjYv0iOOjB=s96-c'
-                  : avatar),
-              radius: 100,
+          Hero(
+            tag: 'logo',
+            child: Container(
+              child: Icon(
+                Icons.qr_code_2_rounded,
+                size: 100,
+                color: Colors.red,
+              ),
             ),
-          ), //CircleAvatar
+          ),
+          // Hero(
+          //   tag: 'logo',
+          //   child: Container(
+          //     child: CircleAvatar(
+          //       backgroundImage: NetworkImage(avatar == null
+          //           ? 'https://lh3.googleusercontent.com/a-/AAuE7mChgTiAe-N8ibcM3fB_qvGdl2vQ9jvjYv0iOOjB=s96-c'
+          //           : avatar),
+          //       radius: 100,
+          //     ),
+          //   ),
+          // ),
+          // Center(
+          //   child: CircleAvatar(
+          //     backgroundImage: NetworkImage(avatar == null
+          //         ? 'https://lh3.googleusercontent.com/a-/AAuE7mChgTiAe-N8ibcM3fB_qvGdl2vQ9jvjYv0iOOjB=s96-c'
+          //         : avatar),
+          //     radius: 100,
+          //   ),
+          // ), //CircleAvatar
 
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -121,6 +141,7 @@ class GeneratePage extends StatelessWidget {
   }
 }
 
+// User Profile Screen.
 class Settings extends StatelessWidget {
   var rollNo;
   var name;
@@ -146,7 +167,8 @@ class Settings extends StatelessWidget {
         children: <Widget>[
           Center(
             child: CircleAvatar(
-              backgroundImage: NetworkImage(avatar),
+              foregroundImage: NetworkImage(
+                  "https://res.cloudinary.com/dzqbzqgjw/image/upload/v1569098981/avatar_default_yqxzqe.png"),
               radius: 100,
             ),
           ), //CircleAvatar
@@ -155,32 +177,38 @@ class Settings extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: SizedBox(
               height: 50,
-              child: Text(
-                "Name: $name",
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black87,
-                    fontStyle: FontStyle.italic,
-                    letterSpacing: 3),
-              ),
+              child: ReText("Name: ", name),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: SizedBox(
               height: 50,
-              child: Text(
-                "Roll Number: $rollNo",
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black87,
-                    fontStyle: FontStyle.italic,
-                    letterSpacing: 3),
-              ),
+              child: ReText("Roll No.: ", rollNo),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+// ReUsable widget for text.
+class ReText extends StatelessWidget {
+  // const Text({ Key? key }) : super(key: key);
+  String fieldName;
+  String data;
+  ReText(this.fieldName, this.data);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      "$fieldName: $data",
+      style: TextStyle(
+          fontSize: 20,
+          color: Colors.black87,
+          fontStyle: FontStyle.italic,
+          letterSpacing: 3),
     );
   }
 }

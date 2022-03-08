@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'generate.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,6 +11,7 @@ void main() {
   ));
 }
 
+// Login Screen
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -21,13 +21,13 @@ class _MyAppState extends State<MyApp> {
   TextEditingController _user = TextEditingController();
   TextEditingController _password = TextEditingController();
 
-  var username;
-  var loginpass;
-
-  var name;
-  var rollNo;
-  var avatar;
-  var qrdata;
+  String username;
+  String loginpass;
+  bool error = false;
+  String name;
+  String rollNo;
+  String avatar;
+  String qrdata;
 
   void getData() async {
     var credential = {
@@ -42,9 +42,7 @@ class _MyAppState extends State<MyApp> {
       body: jsonEncode(credential),
     );
 
-    if (response.statusCode == 500) {
-      print("Error");
-    } else {
+    if (response.statusCode == 200) {
       String data = response.body;
       name = jsonDecode(data)['data']['name'];
       avatar = jsonDecode(data)['data']['avatar'];
@@ -54,13 +52,21 @@ class _MyAppState extends State<MyApp> {
       print(avatar);
       print(qrdata);
       print(rollNo);
+    } else {
+      setState(() {
+        error = true;
+      });
+
+      print("Error");
     }
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     getData();
     return Scaffold(
+      key: _scaffoldkey,
       appBar: AppBar(
         title: Text("e-ID"),
         backgroundColor: Colors.red,
@@ -70,10 +76,22 @@ class _MyAppState extends State<MyApp> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Hero(
+              tag: 'logo',
+              child: Container(
+                child: Icon(
+                  Icons.qr_code_2_rounded,
+                  size: 60,
+                  color: Colors.red,
+                ),
+              ),
+            ),
             Padding(
               padding: EdgeInsets.all(8.0),
               child: TextField(
+                textAlign: TextAlign.center,
                 controller: _user,
+                keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(), labelText: 'Enter Username'),
               ),
@@ -84,6 +102,7 @@ class _MyAppState extends State<MyApp> {
             Padding(
               padding: EdgeInsets.all(8.0),
               child: TextField(
+                textAlign: TextAlign.center,
                 controller: _password,
                 obscureText: true,
                 decoration: InputDecoration(
@@ -96,13 +115,26 @@ class _MyAppState extends State<MyApp> {
                   username = _user.text;
                   loginpass = _password.text;
                 });
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => GeneratePage(
-                          rollNo: rollNo,
-                          avatar: avatar,
-                          name: name,
-                          qrdata: qrdata,
-                        )));
+
+                if (error == false) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => GeneratePage(
+                            rollNo: rollNo,
+                            avatar: avatar,
+                            name: name,
+                            qrdata: qrdata,
+                          )));
+                } else {
+                  _scaffoldkey.currentState.showSnackBar(SnackBar(
+                    content: Text(
+                      "Invalid Credential.",
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                    ),
+                    duration: Duration(seconds: 10),
+                  ));
+                }
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.red,
