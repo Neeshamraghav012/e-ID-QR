@@ -64,78 +64,64 @@ class GeneratePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Hero(
-            tag: 'logo',
-            child: Container(
-              child: Icon(
-                Icons.qr_code_2_rounded,
-                size: 100,
-                color: Colors.red,
-              ),
-            ),
-          ),
-          // Hero(
-          //   tag: 'logo',
-          //   child: Container(
-          //     child: CircleAvatar(
-          //       backgroundImage: NetworkImage(avatar == null
-          //           ? 'https://lh3.googleusercontent.com/a-/AAuE7mChgTiAe-N8ibcM3fB_qvGdl2vQ9jvjYv0iOOjB=s96-c'
-          //           : avatar),
-          //       radius: 100,
-          //     ),
-          //   ),
-          // ),
-          // Center(
-          //   child: CircleAvatar(
-          //     backgroundImage: NetworkImage(avatar == null
-          //         ? 'https://lh3.googleusercontent.com/a-/AAuE7mChgTiAe-N8ibcM3fB_qvGdl2vQ9jvjYv0iOOjB=s96-c'
-          //         : avatar),
-          //     radius: 100,
-          //   ),
-          // ), //CircleAvatar
-
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SizedBox(
-              height: 50,
-              child: Text(
-                "Welcome $name",
-                style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.redAccent,
-                    fontStyle: FontStyle.italic,
-                    letterSpacing: 3),
-              ),
-            ),
-          ),
-          SizedBox(
-            child: (rollNo == null)
-                ? Center(child: Text("enter sometext to display qr code..."))
-                : QrImage(
+      body: Center(
+        child: Card(
+          elevation: 40.0,
+          child: Container(
+            width: 300.0,
+            height: 600.0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Hero(
+                  tag: 'logo',
+                  child: Container(
+                    child: Icon(
+                      Icons.qr_code_2_rounded,
+                      size: 100,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                  child: Text(
+                    ((name != null) ? "Welcome $name" : "Welcome Neesham"),
+                    style: TextStyle(
+                        fontSize: 24,
+                        color: Colors.black,
+                        // fontStyle: FontStyle.,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 3),
+                  ),
+                ),
+                SizedBox(
+                  child: QrImage(
                     embeddedImage: NetworkImage(
                       "https://avatas1.githubusercontent.com/u/41328571?s=280&v=4",
                     ),
-                    data: qrdata,
+                    data: "Neesham",
                     gapless: true,
                   ),
-            width: 200,
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            style: ElevatedButton.styleFrom(
-              primary: Colors.red,
+                  width: 200,
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.red,
+                  ),
+                  child: Text('Go Back'),
+                )
+              ],
             ),
-            child: Text('Go Back'),
-          )
-        ],
+          ),
+        ),
       ),
     );
   }

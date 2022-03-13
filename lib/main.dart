@@ -116,7 +116,8 @@ class _MyAppState extends State<MyApp> {
                   loginpass = _password.text;
                 });
 
-                if (error == false) {
+                // Removing login for testing.
+                if (true) {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => GeneratePage(
                             rollNo: rollNo,
