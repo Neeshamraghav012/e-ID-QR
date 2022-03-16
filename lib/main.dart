@@ -48,16 +48,10 @@ class _MyAppState extends State<MyApp> {
       avatar = jsonDecode(data)['data']['avatar'];
       qrdata = jsonDecode(data)['data']['qrCode'];
       rollNo = jsonDecode(data)['data']['rollNumber'];
-      print(name);
-      print(avatar);
-      print(qrdata);
-      print(rollNo);
     } else {
       setState(() {
         error = true;
       });
-
-      print("Error");
     }
   }
 
@@ -67,94 +61,102 @@ class _MyAppState extends State<MyApp> {
     getData();
     return Scaffold(
       key: _scaffoldkey,
-      appBar: AppBar(
-        title: Text("e-ID"),
-        backgroundColor: Colors.red,
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Hero(
-              tag: 'logo',
-              child: Container(
-                child: Icon(
-                  Icons.qr_code_2_rounded,
-                  size: 60,
-                  color: Colors.red,
+      backgroundColor: Colors.redAccent,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Hero(
+                tag: 'logo',
+                child: Container(
+                  child: Icon(
+                    Icons.qr_code_2_rounded,
+                    size: 100,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: TextField(
-                textAlign: TextAlign.center,
-                controller: _user,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(), labelText: 'Enter Username'),
+              Text("e-ID",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 50.0,
+                      fontWeight: FontWeight.w700)),
+              SizedBox(
+                height: 50.0,
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: TextField(
-                textAlign: TextAlign.center,
-                controller: _password,
-                obscureText: true,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(), labelText: 'Enter Password'),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  username = _user.text;
-                  loginpass = _password.text;
-                });
-
-                // Removing login for testing.
-                if (true) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => GeneratePage(
-                            rollNo: rollNo,
-                            avatar: avatar,
-                            name: name,
-                            qrdata: qrdata,
-                          )));
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        "Invalid Credential.",
-                        style: TextStyle(
-                          color: Colors.red,
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        controller: _user,
+                        keyboardType: TextInputType.name,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Enter Username'),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        controller: _password,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Enter Password',
+                          iconColor: Colors.white,
                         ),
                       ),
-                      behavior: SnackBarBehavior.floating,
                     ),
-                  );
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          username = _user.text;
+                          loginpass = _password.text;
+                        });
 
-                  // _scaffoldkey.currentState.showSnackBar(SnackBar(
-                  //   content: Text(
-                  //     "Invalid Credential.",
-                  //     style: TextStyle(
-                  //       color: Colors.red,
-                  //     ),
-                  //   ),
-                  //   duration: Duration(seconds: 10),
-                  // ));
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.red,
+                        // Removing login for testing.
+                        if (true) {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => GeneratePage(
+                                    rollNo: rollNo,
+                                    avatar: avatar,
+                                    name: name,
+                                    qrdata: qrdata,
+                                  )));
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                "Invalid Credential.",
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
+                              ),
+                              behavior: SnackBarBehavior.floating,
+                            ),
+                          );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.red,
+                      ),
+                      child: Text('Log in'),
+                    )
+                  ],
+                ),
               ),
-              child: Text('Log in'),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );

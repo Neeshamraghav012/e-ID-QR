@@ -30,7 +30,7 @@ class GeneratePage extends StatelessWidget {
                 color: Colors.red,
               ),
               child: Text(
-                '$name',
+                'Neesham',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -158,21 +158,32 @@ class Settings extends StatelessWidget {
               radius: 100,
             ),
           ), //CircleAvatar
-
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SizedBox(
-              height: 50,
-              child: ReText("Name: ", name),
-            ),
+          SizedBox(
+            height: 40.0,
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SizedBox(
-              height: 50,
-              child: ReText("Roll No.: ", rollNo),
-            ),
-          ),
+          Card(
+              elevation: 20.0,
+              child: Container(
+                  width: 350.0,
+                  height: 200.0,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: SizedBox(
+                          height: 50,
+                          child: ReText("Name", "Neesham"),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: SizedBox(
+                          height: 50,
+                          child: ReText("Roll No.", "20001015043"),
+                        ),
+                      ),
+                    ],
+                  ))),
         ],
       ),
     );
@@ -192,7 +203,7 @@ class ReText extends StatelessWidget {
       "$fieldName: $data",
       style: TextStyle(
           fontSize: 20,
-          color: Colors.black87,
+          color: Colors.black,
           fontStyle: FontStyle.italic,
           letterSpacing: 3),
     );
