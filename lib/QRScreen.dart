@@ -192,7 +192,7 @@ class Settings extends StatelessWidget {
 
 // ReUsable widget for text.
 class ReText extends StatelessWidget {
-  // const Text({ Key? key }) : super(key: key);
+  
   String fieldName;
   String data;
   ReText(this.fieldName, this.data);
@@ -204,7 +204,7 @@ class ReText extends StatelessWidget {
       style: TextStyle(
           fontSize: 20,
           color: Colors.black,
-          fontStyle: FontStyle.italic,
+          // fontStyle: FontStyle.italic,
           letterSpacing: 3),
     );
   }

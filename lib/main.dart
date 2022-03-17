@@ -1,14 +1,45 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'generate.dart';
+import 'QRScreen.dart';
 import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MaterialApp(
-    home: MyApp(),
+    home: Splash(),
     debugShowCheckedModeBanner: false,
   ));
+}
+
+// Splash Screen.
+class Splash extends StatefulWidget {
+  Splash({Key? key}) : super(key: key);
+
+  @override
+  State<Splash> createState() => _SplashState();
+}
+
+class _SplashState extends State<Splash> {
+  
+  @override
+  void initState() {
+    super.initState();
+    Timer(Duration(seconds: 3),
+          ()=>Navigator.pushReplacement(context,
+                                        MaterialPageRoute(builder:
+                                                          (context) => 
+                                                          Myapp(),
+                                                         )
+                                       )
+         );
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: FlutterLogo(size:MediaQuery.of(context).size.height)
+    );
+  }
+}
 }
 
 // Login Screen
@@ -18,17 +49,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   TextEditingController _user = TextEditingController();
   TextEditingController _password = TextEditingController();
 
   String username;
   String loginpass;
-  bool error = false;
   String name;
   String rollNo;
   String avatar;
   String qrdata;
 
+  // Variable to keep track of errors.
+  bool error = false;
+
+  // Function to fetch data from ERP Api.
   void getData() async {
     var credential = {
       "user": username,
@@ -55,12 +90,11 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     getData();
     return Scaffold(
-      key: _scaffoldkey,
       backgroundColor: Colors.redAccent,
       body: SafeArea(
         child: Padding(
