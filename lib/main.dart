@@ -120,7 +120,7 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(12.0),
               child: Text("e-ID",
                   style: TextStyle(
                       color: Colors.white,
