@@ -1,10 +1,16 @@
+// ignore_for_file: dead_code
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'QRScreen.dart';
+import 'dart:async';
 import 'package:http/http.dart' as http;
+import 'apis.dart';
+import 'models.dart';
 
 void main() {
   runApp(MaterialApp(
+    theme: ThemeData(),
     home: Splash(),
     debugShowCheckedModeBanner: false,
   ));
@@ -12,34 +18,36 @@ void main() {
 
 // Splash Screen.
 class Splash extends StatefulWidget {
-  Splash({Key? key}) : super(key: key);
-
   @override
   State<Splash> createState() => _SplashState();
 }
 
 class _SplashState extends State<Splash> {
-  
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3),
-          ()=>Navigator.pushReplacement(context,
-                                        MaterialPageRoute(builder:
-                                                          (context) => 
-                                                          Myapp(),
-                                                         )
-                                       )
-         );
+    Timer(
+        Duration(seconds: 3),
+        () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MyApp(),
+            )));
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: FlutterLogo(size:MediaQuery.of(context).size.height)
+      child: Icon(
+        Icons.qr_code_2_rounded,
+        size: 100,
+        color: Colors.white,
+      ),
     );
+
+    //FlutterLogo(size: MediaQuery.of(context).size.height));
   }
-}
 }
 
 // Login Screen
@@ -49,7 +57,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   TextEditingController _user = TextEditingController();
   TextEditingController _password = TextEditingController();
 
@@ -90,19 +97,18 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     getData();
     return Scaffold(
       backgroundColor: Colors.redAccent,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Hero(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Hero(
                 tag: 'logo',
                 child: Container(
                   child: Icon(
@@ -112,20 +118,30 @@ class _MyAppState extends State<MyApp> {
                   ),
                 ),
               ),
-              Text("e-ID",
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text("e-ID",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 50.0,
                       fontWeight: FontWeight.w700)),
-              SizedBox(
-                height: 50.0,
-              ),
-              Center(
+            ),
+            SizedBox(
+              height: 50.0,
+            ),
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15))),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: TextField(
                         textAlign: TextAlign.center,
                         controller: _user,
@@ -139,7 +155,7 @@ class _MyAppState extends State<MyApp> {
                       height: 10,
                     ),
                     Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: TextField(
                         textAlign: TextAlign.center,
                         controller: _password,
@@ -189,8 +205,8 @@ class _MyAppState extends State<MyApp> {
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
