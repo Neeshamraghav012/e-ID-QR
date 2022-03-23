@@ -39,16 +39,19 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: Icon(
-        Icons.qr_code_2_rounded,
-        size: 100,
-        color: Colors.white,
-      ),
+      child: Icon(Icons.qr_code_2_rounded, size: 100, color: Colors.red),
     );
 
     //FlutterLogo(size: MediaQuery.of(context).size.height));
   }
 }
+
+// Icon(
+//         Icons.qr_code_2_rounded,
+//         size: 100,
+//         color: Colors.white,
+
+//       ),
 
 // Login Screen
 class MyApp extends StatefulWidget {
@@ -56,9 +59,40 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   TextEditingController _user = TextEditingController();
   TextEditingController _password = TextEditingController();
+
+  // Animation utilities
+  AnimationController controller;
+  Animation animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+      upperBound: 1.0,
+    );
+
+    animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
+
+    controller.forward();
+
+    controller.addListener(() {
+      setState(() {});
+      print(animation.value);
+    });
+  }
+
+  // Dispose the controller after the animation completetion.
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   String username;
   String loginpass;
@@ -101,7 +135,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     getData();
     return Scaffold(
-      backgroundColor: Colors.redAccent,
+      backgroundColor: Colors.redAccent.withOpacity(controller.value),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,7 +147,7 @@ class _MyAppState extends State<MyApp> {
                 child: Container(
                   child: Icon(
                     Icons.qr_code_2_rounded,
-                    size: 100,
+                    size: animation.value * 100,
                     color: Colors.white,
                   ),
                 ),
