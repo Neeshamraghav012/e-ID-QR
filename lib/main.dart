@@ -46,13 +46,6 @@ class _SplashState extends State<Splash> {
   }
 }
 
-// Icon(
-//         Icons.qr_code_2_rounded,
-//         size: 100,
-//         color: Colors.white,
-
-//       ),
-
 // Login Screen
 class MyApp extends StatefulWidget {
   @override
@@ -73,8 +66,9 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
-      upperBound: 1.0,
+      duration: Duration(seconds: 3),
+      lowerBound: 0.0,
+      upperBound: 80.0,
     );
 
     animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
@@ -83,7 +77,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
     controller.addListener(() {
       setState(() {});
-      print(animation.value);
+      print(controller.value);
     });
   }
 
@@ -135,7 +129,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     getData();
     return Scaffold(
-      backgroundColor: Colors.redAccent.withOpacity(controller.value),
+      backgroundColor: Colors.redAccent, //.withOpacity(controller.value)
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -147,7 +141,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                 child: Container(
                   child: Icon(
                     Icons.qr_code_2_rounded,
-                    size: animation.value * 100,
+                    size: controller.value,
                     color: Colors.white,
                   ),
                 ),
