@@ -21,6 +21,7 @@ class GeneratePage extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.red,
       ),
+      backgroundColor: Colors.red,
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -30,7 +31,7 @@ class GeneratePage extends StatelessWidget {
                 color: Colors.red,
               ),
               child: Text(
-                'Neesham',
+                rollNo,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -74,37 +75,37 @@ class GeneratePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Hero(
-                  tag: 'logo',
-                  child: Container(
-                    child: Icon(
-                      Icons.qr_code_2_rounded,
-                      size: 100,
-                      color: Colors.red,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 50,
-                  child: Text(
-                    ((name != null) ? "Welcome $name" : "Welcome Neesham"),
-                    style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.black,
-                        // fontStyle: FontStyle.,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 3),
-                  ),
-                ),
                 SizedBox(
                   child: QrImage(
                     embeddedImage: NetworkImage(
                       "https://avatas1.githubusercontent.com/u/41328571?s=280&v=4",
                     ),
-                    data: "Neesham",
+                    data: rollNo,
                     gapless: true,
                   ),
                   width: 200,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Welcome",
+                  style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.black,
+                      // fontStyle: FontStyle.,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 3),
+                ),
+                Text(
+                  rollNo,
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.black,
+                    // fontStyle: FontStyle.,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 3,
+                  ),
                 ),
                 SizedBox(
                   height: 50,
@@ -148,42 +149,88 @@ class Settings extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.red,
       ),
+      backgroundColor: Colors.red,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Center(
-            child: CircleAvatar(
-              foregroundImage: NetworkImage(
-                  "https://res.cloudinary.com/dzqbzqgjw/image/upload/v1569098981/avatar_default_yqxzqe.png"),
-              radius: 100,
+        children: [
+          Expanded(
+            child: Container(
+              // Half of the device height.
+              // height: 200.0,
+              margin: EdgeInsets.only(top: 20.0),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(160),
+                  topRight: Radius.circular(160),
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: 20,
+                    ),
+                    child: Center(
+                      child: CircleAvatar(
+                        foregroundImage: NetworkImage(
+                            // Add better image.
+                            "https://source.unsplash.com/300x300/?profile"),
+                        radius: 100,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 80.0,
+                  ),
+                  Card(
+                    elevation: 10.0,
+                    child: Container(
+                      height: 200,
+                      width: 400,
+                      color: Colors.redAccent,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "Neesham",
+                            style: TextStyle(
+                                fontSize: 24.0,
+                                letterSpacing: 2.0,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Text(
+                            "20001015043",
+                            style: TextStyle(
+                                fontSize: 18.0,
+                                letterSpacing: 2.0,
+                                fontWeight: FontWeight.w300),
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Text(
+                            "Student at YMCA",
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              letterSpacing: 2.0,
+                              fontWeight: FontWeight.w400,
+                              // color: Colors.green[400],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ), //CircleAvatar
-          SizedBox(
-            height: 40.0,
           ),
-          Card(
-              elevation: 20.0,
-              child: Container(
-                  width: 350.0,
-                  height: 200.0,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: SizedBox(
-                          height: 50,
-                          child: ReText("Name", "Neesham"),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: SizedBox(
-                          height: 50,
-                          child: ReText("Roll No.", "20001015043"),
-                        ),
-                      ),
-                    ],
-                  ))),
         ],
       ),
     );
@@ -192,7 +239,6 @@ class Settings extends StatelessWidget {
 
 // ReUsable widget for text.
 class ReText extends StatelessWidget {
-  
   String fieldName;
   String data;
   ReText(this.fieldName, this.data);
