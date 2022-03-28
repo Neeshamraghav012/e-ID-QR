@@ -88,8 +88,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  String username;
-  String loginpass;
+  String password;
   String name;
   String rollNo;
   String avatar;
@@ -98,11 +97,26 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   // Variable to keep track of errors.
   bool error = false;
 
+  // Fetching Data from api.
+
+  Future<Welcome> fetchUser() async {
+    final response = await http.get(
+      Uri.parse("https://jsonplaceholder.typicode.com/users"),
+    );
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      return Welcome.fromJson(json.decode(response.body));
+    } else {
+      throw Exception("Failed to load Users");
+    }
+  }
+
   // Function to fetch data from ERP Api.
   void getData() async {
     var credential = {
-      "user": username,
-      "password": loginpass,
+      "rollNo.": rollNo,
+      "password": password,
     };
     http.Response response = await http.post(
       Uri.parse('https://id-card-jcbose.herokuapp.com/login'),
@@ -127,13 +141,18 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    getData();
+    // getData();
     return Scaffold(
       backgroundColor: Colors.redAccent, //.withOpacity(controller.value)
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            FutureBuilder<Welcome>(
+                future: fetchUser(),
+                builder: (context, snapshot) {
+                  return Text("${snapshot.data.name}");
+                }),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Hero(
@@ -173,10 +192,10 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                       child: TextField(
                         textAlign: TextAlign.center,
                         controller: _user,
-                        keyboardType: TextInputType.name,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: 'Enter Username'),
+                            labelText: 'Enter roll no.'),
                       ),
                     ),
                     SizedBox(
@@ -198,8 +217,8 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          username = _user.text;
-                          loginpass = _password.text;
+                          rollNo = _user.text;
+                          password = _password.text;
                         });
 
                         // Removing login for testing.

@@ -21,6 +21,7 @@ class GeneratePage extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.red,
       ),
+      backgroundColor: Colors.red,
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -30,7 +31,7 @@ class GeneratePage extends StatelessWidget {
                 color: Colors.red,
               ),
               child: Text(
-                'Neesham',
+                rollNo,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -74,37 +75,37 @@ class GeneratePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Hero(
-                  tag: 'logo',
-                  child: Container(
-                    child: Icon(
-                      Icons.qr_code_2_rounded,
-                      size: 100,
-                      color: Colors.red,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 50,
-                  child: Text(
-                    ((name != null) ? "Welcome $name" : "Welcome Neesham"),
-                    style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.black,
-                        // fontStyle: FontStyle.,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 3),
-                  ),
-                ),
                 SizedBox(
                   child: QrImage(
                     embeddedImage: NetworkImage(
                       "https://avatas1.githubusercontent.com/u/41328571?s=280&v=4",
                     ),
-                    data: "Neesham",
+                    data: rollNo,
                     gapless: true,
                   ),
                   width: 200,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Welcome",
+                  style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.black,
+                      // fontStyle: FontStyle.,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 3),
+                ),
+                Text(
+                  rollNo,
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.black,
+                    // fontStyle: FontStyle.,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 3,
+                  ),
                 ),
                 SizedBox(
                   height: 50,
@@ -166,12 +167,17 @@ class Settings extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Center(
-                    child: CircleAvatar(
-                      foregroundImage: NetworkImage(
-                          // Add better image.
-                          "https://res.cloudinary.com/demo/image/gravatar/d_retro/unknown_id.jpg"),
-                      radius: 100,
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: 20,
+                    ),
+                    child: Center(
+                      child: CircleAvatar(
+                        foregroundImage: NetworkImage(
+                            // Add better image.
+                            "https://source.unsplash.com/300x300/?profile"),
+                        radius: 100,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -211,9 +217,11 @@ class Settings extends StatelessWidget {
                           Text(
                             "Student at YMCA",
                             style: TextStyle(
-                                fontSize: 16.0,
-                                letterSpacing: 2.0,
-                                fontWeight: FontWeight.w200),
+                              fontSize: 18.0,
+                              letterSpacing: 2.0,
+                              fontWeight: FontWeight.w400,
+                              // color: Colors.green[400],
+                            ),
                           ),
                         ],
                       ),
