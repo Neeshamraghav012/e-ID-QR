@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'apis.dart';
 
 // QR code Screen.
 class GeneratePage extends StatelessWidget {
@@ -22,6 +24,13 @@ class GeneratePage extends StatelessWidget {
         backgroundColor: Colors.red,
       ),
       backgroundColor: Colors.red,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print("Clicked!");
+        },
+        child: Icon(Icons.qr_code_2_rounded),
+        backgroundColor: Colors.red,
+      ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -62,6 +71,17 @@ class GeneratePage extends StatelessWidget {
                         qrdata: qrdata)));
               },
             ),
+            ListTile(
+              leading: Icon(Icons.list),
+              title: Text('Students'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => Api(),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -97,16 +117,37 @@ class GeneratePage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       letterSpacing: 3),
                 ),
-                Text(
-                  rollNo,
+                // Text(
+                //   rollNo,
+                //   style: TextStyle(
+                //     fontSize: 24,
+                //     color: Colors.black,
+                //     // fontStyle: FontStyle.,
+                //     fontWeight: FontWeight.bold,
+                //     letterSpacing: 3,
+                //   ),
+                // ),
+
+                DefaultTextStyle(
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 24.0,
                     color: Colors.black,
-                    // fontStyle: FontStyle.,
-                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Agne',
                     letterSpacing: 3,
                   ),
+                  child: AnimatedTextKit(
+                    animatedTexts: [
+                      TypewriterAnimatedText(
+                        rollNo,
+                        speed: Duration(milliseconds: 40),
+                      ),
+                    ],
+                    onTap: () {
+                      print("Tap Event");
+                    },
+                  ),
                 ),
+
                 SizedBox(
                   height: 50,
                 ),

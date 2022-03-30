@@ -41,8 +41,6 @@ class _SplashState extends State<Splash> {
       color: Colors.white,
       child: Icon(Icons.qr_code_2_rounded, size: 100, color: Colors.red),
     );
-
-    //FlutterLogo(size: MediaQuery.of(context).size.height));
   }
 }
 
@@ -97,21 +95,6 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   // Variable to keep track of errors.
   bool error = false;
 
-  // Fetching Data from api.
-
-  Future<Welcome> fetchUser() async {
-    final response = await http.get(
-      Uri.parse("https://jsonplaceholder.typicode.com/users"),
-    );
-
-    if (response.statusCode == 200) {
-      print(response.body);
-      return Welcome.fromJson(json.decode(response.body));
-    } else {
-      throw Exception("Failed to load Users");
-    }
-  }
-
   // Function to fetch data from ERP Api.
   void getData() async {
     var credential = {
@@ -141,18 +124,12 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    // getData();
     return Scaffold(
-      backgroundColor: Colors.redAccent, //.withOpacity(controller.value)
+      backgroundColor: Colors.redAccent,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            FutureBuilder<Welcome>(
-                future: fetchUser(),
-                builder: (context, snapshot) {
-                  return Text("${snapshot.data.name}");
-                }),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Hero(
@@ -180,10 +157,12 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
             Expanded(
               child: Container(
                 decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15))),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                  ),
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -220,7 +199,6 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                           rollNo = _user.text;
                           password = _password.text;
                         });
-
                         // Removing login for testing.
                         if (true) {
                           Navigator.of(context).push(MaterialPageRoute(
